@@ -3,10 +3,11 @@
   <groupId>com.tencent.grpc</groupId>
   <artifactId>replay-release</artifactId>
   <versioning>
-    <latest>1.0.1.23-SNAPSHOT</latest>
+    <latest>1.0.1.24-SNAPSHOT</latest>
     <versions>
       <version>1.0.1.23-SNAPSHOT</version>
+      <version>1.0.1.24-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20230320102348</lastUpdated>
+    <lastUpdated>20230323030526</lastUpdated>
   </versioning>
 </metadata>
