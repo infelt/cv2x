@@ -277,43 +277,43 @@ public void releaseV2Xserver(){
 
     设置是否开启车道定位功能。利用陀螺仪等传感器识别换道行为，默认开启
 
-5. ``void setIsLog(boolean isLog)`` 
+4. ``void setIsLog(boolean isLog)`` 
 
     设置是否记录日志信息。日志信息较多，建议仅在debug阶段开启，默认开启
 
-6. ``void setCarType (int carType)`` 
+5. ``void setCarType (int carType)`` 
 
     用以手动设置车辆类型,
     车辆类型
     1:一般车辆 4:卡车 5:警车 8:工程车 13:摩托车 14:巴士
 
-7. ``void setControlServerURL(String controlURL)``
+6. ``void setControlServerURL(String controlURL)``
 
     用以设置云控中心服务器URL地址,云控中心服务器URL地址，默认端口4245。
 
 
-8. ``void setTestServerURL(String testURL)``
+7. ``void setTestServerURL(String testURL)``
 
      用以设置测试服务器URL地址,默认端口4246。该API仅在开发阶段开发使用
 
-9.  ``void setLocalCompute(boolean localCompute)``
+8.  ``void setLocalCompute(boolean localCompute)``
     
     用以设置是否启用本地计算能力, 参数：true：启用本地计算 ，false : 启用云端计算能力。
     默认为false启用云端能力。
 
-10. `` void setUseCustomGps(boolean useCustomGps)``
+9. `` void setUseCustomGps(boolean useCustomGps)``
 
     设置是否使用外部Gps数据。参数：true：启用外部gps数据 ，false : 启用本地数据。 默认为false。
     
     若设置为true,则需调用``offerCustomGpsInfo(GPSInfo gpsInfo)``来提供gps数据。
 
-11. ``void setPostTypeWgs84(boolean usingWgs84)`` 
+10. ``void setPostTypeWgs84(boolean usingWgs84)`` 
 
     设置是否采用GPS信息返回周车主车等位置信息。（目前适用于“周车预警”回调中），返回gps数据格式和上报车数据格式有关。
 
     参数 usingWgs84: true ,采用GPS数据 ; fasle,采用xyz相对位置格式。
 
-12. ``void setCollisionType(int type)``
+11. ``void setCollisionType(int type)``
 
     设置预警消息类型，默认是普通预警。
 
@@ -322,25 +322,35 @@ public void releaseV2Xserver(){
     V2xConstants.WS_TYPE_NORMAL_COLLISION 普通预警；
     V2xConstants.WS_TYPE_AROUND_COLLISION 周车预警；
     
-13. ``void setSendGsp02(boolean use02)``
-
+12. ``void setSendGsp02(boolean use02)``
       设置当前发送的gps坐标系，仅作用SDK内部获取的gps。外部传入的需自行转换。
 
       参数use02： false 默认发送84坐标系， ture 会将84转为02坐标发送。
     
-14. ```
-      boolean setLoggerWriterStrategy(ILoggerWriter writerStrategy)
-    ```
-
+13. ``boolean setLoggerWriterStrategy(ILoggerWriter writerStrategy)``
 ​		设置日志保存策略，设置后v2x日志将不在保存日志到本地。		
 
-15. ```
-    void setForegroundService(boolean isForegroundService)
-    ```
-
+14. ``void setForegroundService(boolean isForegroundService)``
 ​		设置是否启动时服务是添加通知栏保持为前台服务，默认v2x启动后会显示前台通知。
 
+15. ``void setAutoSwitchRegion(boolean switchRegion)``
 
+    设置是否根据当前位置自动切换服务器，需配合setNavPassedRegions使用。
+
+16. ``int setNavPassedRegions(String regionInfos)``
+    设置v2x经过的区域，改结果从区域服务后台获取。
+    返回值：>= 0 ,包含的区域数量；< 0,设置失败。
+ 
+17. ``void setAnonymousUser(@NonNull String openId, @Nullable String carId) ``
+    
+    设置匿名用户信息.
+    参数：openId  用户openid
+    carId 车牌号
+18. `` int RouteApi.getStartRegionId(int navIndex) ``
+
+    根据导航点串返回需要启动的区域id,需配合接口setNavPassedRegions使用。
+    参数：导航当前索引
+    返回值：>0 需要启动的区域id， -1，则无需启动.
 
 ### 3.3.3 **V2XModule ，模块初始化，设置接口回调**
 
@@ -403,10 +413,7 @@ public void releaseV2Xserver(){
 
     注册点事件消息回调（目前默认返回前向1.5km范围内点事件）
     
-11. ```
-     void setV2xErrorListener(IV2xErrorListener v2xErrorListener)
-    ```
-
+11. `` void setV2xErrorListener(IV2xErrorListener v2xErrorListener)``
 ​		设置v2x内部异常监听，目前仅支持当后台服务用户清空后用户登录失效回调。
 
 
@@ -484,9 +491,22 @@ ps: 具体预警组合类型参见附表1、附表2。
 
 #### 5、AroundInfoListener 
 
-周车预警消息回调接口，需要实现`void onAroundData(AroundData aroundData, String msg)`方法。
+`void onAroundData(AroundData aroundData, String msg)`
+
+周车预警消息回调接口。消息内容字段详见5.1。
 
 其中若在设置回调函数``setV2XAroundInfoListener ``中参数``trnTrm``设置为ture,则只返回结构体类型数据msg,否则只返回对象aroundData。 
+
+#### 可选实现
+
+``void onPerceptualRegion(boolean isInPerceptual, boolean isInServerRegion)``
+
+感知变化回调，当监测到感知变化时给出回调。
+
+参数：
+isInPerceptual  当前是否有感知（感知异常或不稳定）。
+
+isInServerRegion  当前是否在感知区域路段 （当前位置是否是车路协同路段）。
 
 ##### 5.1 AroundData数据结构
 
