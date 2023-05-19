@@ -32,7 +32,7 @@ allprojects {
 
 ```groovy
 //v2x sdk
-implementation "com.tencent.v2xlib:v2xlib-simplify-release:1.0.1.24-SNAPSHOT"
+implementation "com.tencent.v2xlib:v2xlib-simplify-release:1.0.1.45"
 //v2x模拟测试回放sdk
 implementation "com.tencent.grpc:replay-release:1.0.1.24-SNAPSHOT"
 ```
