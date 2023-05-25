@@ -7,7 +7,7 @@
 # 二、集成方式
 ## 2.1 添加maven地址
 
-​	在工厂根目录build.gradle或setting.gralde中，添加maven地址（外网请添加外面地址）。
+​	在工程根目录build.gradle或setting.gralde中，添加maven地址（外网请添加外面地址）。
 
 ```groovy
 allprojects {
@@ -160,6 +160,7 @@ v2xModule.init(this);
 
 #### 3、匿名登录
 
+1. 手动注册登录
 - 获取能标识用户的唯一ID
 
 - 注册（registerUserInfo）
@@ -176,6 +177,10 @@ v2xModule.init(this);
 - 根据返回如果已经注册则调用登录（checkUserInfo）
 
   参数openId，唯一标识ID。
+
+2. 便捷登录
+- 初始化v2x之前，设置唯一openid 和车牌，v2xSDK会自动完成登录流程。
+`` void V2XConfig.setAnonymousUser(@NonNull String openId, @Nullable String carId)``
 
 #### 4、错误码说明（V2xErrorConstants）
 
@@ -335,20 +340,20 @@ public void releaseV2Xserver(){
 
 15. ``void setAutoSwitchRegion(boolean switchRegion)``
 
-    设置是否根据当前位置自动切换服务器，需配合setNavPassedRegions使用。
+    设置是否根据当前位置自动切换服务器，需配合setNavPassedRegions使用。(暂不公开)
 
 16. ``int setNavPassedRegions(String regionInfos)``
-    设置v2x经过的区域，改结果从区域服务后台获取。
+    设置v2x经过的区域，改结果从区域服务后台获取。(暂不公开)
     返回值：>= 0 ,包含的区域数量；< 0,设置失败。
  
 17. ``void setAnonymousUser(@NonNull String openId, @Nullable String carId) ``
     
-    设置匿名用户信息.
+    设置匿名用户信息.(暂不公开)
     参数：openId  用户openid
     carId 车牌号
 18. `` int RouteApi.getStartRegionId(int navIndex) ``
 
-    根据导航点串返回需要启动的区域id,需配合接口setNavPassedRegions使用。
+    根据导航点串返回需要启动的区域id,需配合接口setNavPassedRegions使用。(暂不公开)
     参数：导航当前索引
     返回值：>0 需要启动的区域id， -1，则无需启动.
 
