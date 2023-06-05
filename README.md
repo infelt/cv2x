@@ -32,9 +32,9 @@ allprojects {
 
 ```groovy
 //v2x sdk
-implementation "com.tencent.v2xlib:v2xlib-simplify-release:1.0.1.45"
+implementation "com.tencent.v2xlib:v2xlib-simplify-release:1.0.1.47"
 //v2x模拟测试回放sdk
-implementation "com.tencent.grpc:replay-release:1.0.1.24-SNAPSHOT"
+implementation "com.tencent.grpc:replay-release:1.0.1.47"
 ```
 
 
@@ -450,22 +450,45 @@ ps: 具体预警组合类型参见附表1、附表2。
 
 其中若在设置回调函数``setV2XTrafficLightInfoListener ``中参数``trnTrm``设置为ture,则只返回TrafficlightData序列化后的数据msg,否则只返回对象trafficlightData。
 
+##### 2.1 TrafficlightData数据结构
 | 参数名 | 说明 | 
 | :--- | :---: |
 | lat | 红绿灯纬度(WGS84坐标) |
 | lng | 红绿灯经度(WGS84坐标) |
 | ele | 红绿灯海拔，单位米 |
 | heading | 红绿灯朝向的方向角；范围为0-360度，正北为0度，顺时针旋转 |
+| distance | 离红绿灯或者路口的距离 |
 | sid | 红绿灯设备唯一id |
 | time | 消息发送时间戳(ms)，1970纪元后经过的毫秒数 |
-| laneID | 当前车道可能的行驶方向 1: 掉头; 2: 左转; 3: 直行; 4: 右转 |
-| back/left/right/straight.status | 逆转/左转/右转/直行灯状态 -1:无此设备 0: 设备正常 1: 设备故障 |
 | back/left/right/straight.color | 逆转/左转/右转/直行灯颜色 1: 绿灯 2: 红灯 3: 黄灯 |
 | back/left/right/straight.time | 逆转/左转/右转/直行灯剩余时间，单位为秒 |
-| distance | 离红绿灯或者路口的距离 |
-| advice | 各个方向通行意见 |
-| lane | 通行方向 1: 掉头; 2: 左转; 3: 直行; 4: 右转 |
-| message | 通行意见 |
+
+##### 2.2 TrafficLightInfo msg数据样例
+
+```json
+{
+    "id":0,
+    "type":3,
+    "message":"{\"pos\": [116.14805, 39.91919, 0, 180, 20], \"sid\": \"traffic_light_6\", \"time\": 1608984341277, \"light\": [[2, 2, 5], [3, 2, 5], [4, 2, 2]]}"
+}
+```
+##### 2.3 TrafficLightInfo msg数据说明
+| 参数名 | 说明 | 
+| :--- | :---: |
+| id | msgid，无需关心 |
+| type | 消息类型，3代表红绿灯消息 |
+| message | 红绿灯消息体 |
+| pos | 数组结构分别代表：红绿灯维度，经度，海拔，朝向，距离 |
+| sid | 红绿灯设备唯一id |
+| time | 消息发送时间戳(ms)，1970纪元后经过的毫秒数 |
+| light | 二维数组，每个数组代表一个红绿灯灯态，数组元素分别代表：红绿灯通行方向，状态，倒计时。 |
+
+| 状态说明 | 数据值 | 
+| :--- | :---: |
+|红绿灯通行方向| 1:掉头  2:左转  3:直行  4:右转|
+|红绿灯状态 | 1: 绿灯 2: 红灯 3: 黄灯 |
+|倒计时 | 单位秒 |
+
 
 #### 3、WebInfoListener
 
