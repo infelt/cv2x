@@ -7,7 +7,7 @@
 # 二、集成方式
 ## 2.1 添加maven地址
 
-​	在工程根目录build.gradle或setting.gralde中，添加maven地址（外网请添加外面地址）。
+​	在工程根目录build.gradle或setting.gralde中，添加maven地址（外网请添加外网地址）。
 
 ```groovy
 allprojects {
@@ -15,12 +15,11 @@ allprojects {
         //...
         //内网
         maven {
-            url 'https://mirrors.tencent.com/repository/maven/cv2x-snapshots'
-            //url 'https://mirrors.tencent.com/repository/maven/cv2x'
+            url 'https://mirrors.tencent.com/repository/maven/cv2x'
         }
         //外网
           maven {
-            url 'https://raw.githubusercontent.com/infelt/cv2x/main'
+            url 'https://gitee.com/infelt/cv2x/raw/main'
         }
     }
 }
@@ -32,7 +31,7 @@ allprojects {
 
 ```groovy
 //v2x sdk
-implementation "com.tencent.v2xlib:v2xlib-simplify-release:1.0.1.47"
+implementation "com.tencent.v2xlib:v2xlib-simplify-release:1.0.1.52"
 //v2x模拟测试回放sdk
 implementation "com.tencent.grpc:replay-release:1.0.1.47"
 ```
@@ -80,10 +79,11 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 
 ### 3.2.2 初始化配置，及初始化v2x服务
 ```java
-V2XConfig.setIsLog(false);
-//...
-V2XConfig.setControlServerURL("http://xxx:4245/api/getServer");
-
+//开启log记录，（建议调试阶段打开）
+V2XConfig.setIsLog(true);
+//设置v2xServr api地址
+V2XConfig.setControlServerURL("http://xxx:4291");
+//... 
 V2XModule v2xModule = V2XModule.getInstance();
 v2xModule.init(this);
   
