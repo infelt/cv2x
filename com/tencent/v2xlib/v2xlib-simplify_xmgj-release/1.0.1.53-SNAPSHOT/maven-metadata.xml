@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.tencent.v2xlib</groupId>
+  <artifactId>v2xlib-simplify_xmgj-release</artifactId>
+  <version>1.0.1.53-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20230608.065715</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20230608065715</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.0.1.53-20230608.065715-1</value>
+        <updated>20230608065715</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>aar</extension>
+        <value>1.0.1.53-20230608.065715-1</value>
+        <updated>20230608065715</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

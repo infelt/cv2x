@@ -3,7 +3,7 @@
   <groupId>com.tencent.v2xlib</groupId>
   <artifactId>v2xlib-simplify-release</artifactId>
   <versioning>
-    <latest>1.0.1.52</latest>
+    <latest>1.0.1.53-SNAPSHOT</latest>
     <release>1.0.1.52</release>
     <versions>
       <version>1.0.1.23-SNAPSHOT</version>
@@ -12,7 +12,9 @@
       <version>1.0.1.45</version>
       <version>1.0.1.47</version>
       <version>1.0.1.52</version>
+      <version>1.0.1.52-SNAPSHOT</version>
+      <version>1.0.1.53-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20230607032307</lastUpdated>
+    <lastUpdated>20230608064929</lastUpdated>
   </versioning>
 </metadata>
